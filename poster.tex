@@ -1,30 +1,42 @@
 \PassOptionsToPackage{unicode, colorlinks=true, linkcolor=black, urlcolor=black}{hyperref}
 \documentclass[t]{beamer} 
 
+%% load the theme with the hexcode for the maincolor
+%% this gives a darkish blue, default is TU Dortmund Green
 \usetheme[0000AA]{fact}
 
 \usepackage[
-  orientation=portrait,
+  orientation=portrait,  
   size=a0,
-  scale=1.0,
+  scale=1.0,  % scale fonts with this factor
 ]{beamerposter}
 
 \usepackage{fontspec}
-
 \usepackage{polyglossia}
 \setmainlanguage[variant=american]{english}
 
-\usepackage{csquotes}
+% microtypographic adjusments (protrusion, kerning etc.)
 \usepackage{microtype}
+
+% automatic enquoting depending on the language with \enquote{Bla}
+\usepackage{csquotes}
+
+% math setup
 \usepackage{mathtools}
 \usepackage{unicode-math}
 \setmathfont[Scale=MatchLowercase]{TeX Gyre Pagella Math}
 
+% some stupid sample text to fill the boxes
 \usepackage{blindtext}
+
+% offers the \begin{multicols}{NCOLS} environment
 \usepackage{multicol}
 
+% for including all types of graphics
 \usepackage{graphicx}
 
+% bibliography settings, this is a little complicated to
+% get an inline list.
 \usepackage[backend=biber, style=numeric]{biblatex}
 \DeclareFieldFormat*{title}{\textit{#1}}
 \renewcommand*{\bibfont}{\footnotesize}
@@ -43,9 +55,9 @@
   }%
   \setunit{\addnbspace}%
 }
-
 \renewcommand*{\finentrypunct}{\addperiod\space}
 
+% just a helpful definition to get columns with a third of the textwidth
 \newlength{\thirdtextwidth}
 \setlength\thirdtextwidth{0.333333\textwidth}
 
@@ -53,19 +65,16 @@
 \author{Corresponding Author for the FACT-Collaboration}
 
 \begin{document}%
-% \begin{tikz}[remember picture, overlay, shift=(current page.north west)]
-% \draw [thick, lightgray, step=1.0cm,] (0,0) grid (\paperwidth, -\paperheight);
-% \end{tikz}
 \begin{columns}[onlytextwidth]%
   \begin{column}{0.5\textwidth}%
     \begin{block}[equal height group=A]{Test}%
       \begin{multicols}{2}
         \begin{figure}
           \includegraphics[width=\linewidth]{example-image-a}\\
-          \caption{Toller Plot.\cite{icrc-alignment}}\label{fig:tollerplot}
+          \caption{Toller Plot.\cite{fact-performance}}\label{fig:tollerplot}
         \end{figure}
         \columnbreak
-        \blindtext\cite{icrc-muons}
+        \blindtext
       \end{multicols}
     \end{block}%
   \end{column}%
