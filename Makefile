@@ -7,10 +7,12 @@ texoptions = -lualatex \
 
 all: build/poster.pdf
 
-build/poster.pdf: poster.tex poster_header.tex beamerthemefact.sty | build
+build/poster.pdf: poster.tex beamerthemefact.sty | build
 	$(texinputs) latexmk $(texoptions) poster.tex
 
-preview: poster.tex poster_header.tex beamerthemefact.sty | build
+# this compiles the poster, opens a pdf viewer and 
+# then constantly updates if the input files are changed
+preview: poster.tex beamerthemefact.sty | build
 	$(texinputs) latexmk $(texoptions) -pvc poster.tex
 
 build:
