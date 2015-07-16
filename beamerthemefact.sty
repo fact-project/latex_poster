@@ -1,10 +1,20 @@
 \ProvidesPackage{beamerthemenfact}
+%default for main color is TU Dortmund green
+\definecolor{maincolor}{RGB}{132, 186, 26}
+\DeclareOption*{\definecolor{maincolor}{HTML}{\CurrentOption}}
+\ProcessOptions\relax
 
 %% packages %%
 \RequirePackage{xcolor}
 \RequirePackage{tcolorbox}
 \RequirePackage{ifluatex}
 \RequirePackage{ifxetex}
+
+%% make default text font serif and allow usage of all fonts
+\usefonttheme{serif}
+\usefonttheme{professionalfonts}
+
+\setlength{\columnsep}{1cm}
 
 \ifluatex%
   \RequirePackage{fontspec}
@@ -20,10 +30,16 @@
   \fi
 \fi
 
-\RequirePackage{tikz}
-
 %% add numbers to figures and tables
 \setbeamertemplate{caption}[numbered]
+
+
+
+%% color definitions %%
+\colorlet{darkmaincolor}{maincolor!70!black}
+\colorlet{lightmaincolor}{maincolor!10!white}
+\colorlet{myYellow}{yellow!70!red}
+\colorlet{myRed}{red!80!black}
 
 %% bibliography settings
 \setbeamertemplate{bibliography item}[text]
@@ -32,7 +48,7 @@
 \setbeamercolor{bibliography entry title}{fg=black}
 \setbeamercolor{bibliography entry location}{fg=black}
 \setbeamercolor{bibliography entry note}{fg=black}
-\setbeamercolor{bibliography item}{fg=tudark}
+\setbeamercolor{bibliography item}{fg=darkmaincolor}
 
 \setbeamerfont{bibliography item}{size=\footnotesize}
 \setbeamerfont{bibliography entry author}{size=\footnotesize}
@@ -40,14 +56,7 @@
 \setbeamerfont{bibliography entry location}{size=\footnotesize}
 \setbeamerfont{bibliography entry note}{size=\footnotesize}
 
-
-%% color definitions %%
-\definecolor{tugreen}{RGB}{132, 186, 26}
-\colorlet{tudark}{tugreen!70!black}
-\colorlet{tulight}{tugreen!10!white}
-\colorlet{tuYellow}{yellow!70!red}
-\colorlet{tuRed}{red!80!black}
-
+%% replace beamer blocks with tcolorboxes
 \newtcolorbox{myblock}[2][1]{
   leftright skip=5mm,
   before skip=10mm,
@@ -105,18 +114,24 @@
   \end{myblock}
 }
 
-\usefonttheme{serif}
+%% customize lists
+\RequirePackage{enumitem}
+\setlist[itemize]{font=\color{maincolor}\bfseries, label=\textbullet}
+\setlist[enumerate]{font=\color{maincolor}\bfseries, label=\arabic*.}
+\setlist[description]{font=\color{maincolor}\bfseries}
 
+%% no navigation symbols
 \setbeamertemplate{navigation symbols}{}
 
+%% create FACT headline
 \setbeamertemplate{headline}{
-  \begin{beamercolorbox}[wd=\paperwidth, ht=1cm]{headline}
+  \begin{beamercolorbox}[wd=\paperwidth, ht=2cm]{headline}
   \end{beamercolorbox}
   \begin{beamercolorbox}[wd=\paperwidth]{headline}
     \hspace*{2cm}%
     \parbox[t][10cm][c]{0.17\paperwidth-2cm}{%
       \vfill
-      \includegraphics[height=8cm]{logos/fact.png}%
+      \includegraphics[height=10cm]{logos/fact.png}%
       \vfill
     }%
     \hspace{2cm}%
@@ -124,11 +139,11 @@
       \vspace*{\fill}
       \begin{beamercolorbox}[wd=\linewidth, center]{title}
         \usebeamerfont{headline}
-        \textcolor{tugreen}{FACT} –
-        the \textcolor{tugreen}{F}irst
-        G-\textcolor{tugreen}{A}PD
-        \textcolor{tugreen}{C}herenkov
-        \textcolor{tugreen}{T}elescope
+        \textcolor{maincolor}{FACT} –
+        the \textcolor{maincolor}{F}irst
+        G-\textcolor{maincolor}{A}PD
+        \textcolor{maincolor}{C}herenkov
+        \textcolor{maincolor}{T}elescope
       \end{beamercolorbox}
       \vspace*{1cm}
       \begin{beamercolorbox}[wd=\linewidth, center]{title}%
@@ -153,15 +168,14 @@
       \includegraphics[height=2cm]{logos/isdc.pdf}
       \vspace*{\fill}
     }%
+    \vspace*{1cm}
   \end{beamercolorbox}%
 }
 
 \setbeamertemplate{footline}{\vspace*{1cm}}
 
 %% fonts %%
-
 \setbeamerfont{normal text}{size=\normalsize, family=\rmfamily}
-
 \setbeamerfont{headline}{
   size=\fontsize{70}{80}\selectfont,
   family=\sffamily,
@@ -170,32 +184,32 @@
 \setbeamerfont{title}{size=\Huge, family=\sffamily, series=\bfseries}
 \setbeamerfont{author}{size=\LARGE, family=\rmfamily}
 \setbeamerfont{institute}{size=\Large}
-
 \setbeamerfont{block title}{size=\LARGE, family=\sffamily, series=\bfseries}
-
-\setbeamerfont{caption name}{size=\normalsize, family=\sffamily, series=\bfseries}
+\setbeamerfont{caption name}{
+  size=\normalsize,
+  family=\sffamily,
+  series=\bfseries,
+}
 \setbeamerfont{caption}{size=\normalsize}
 
 %% colors %%
-
-\setbeamercolor*{background canvas}{bg=tulight}
-
+\setbeamercolor*{background canvas}{bg=lightmaincolor}
 
 \setbeamercolor*{headline}{fg=black, bg=white}
-\setbeamercolor*{footline}{fg=tugreen, bg=white}
+\setbeamercolor*{footline}{fg=maincolor, bg=white}
 
 \setbeamercolor*{title}{fg=black}
 \setbeamercolor*{institute}{fg=black}
 \setbeamercolor*{author}{fg=black}
 
-\setbeamercolor*{block title}{fg=white, bg=tugreen}
+\setbeamercolor*{block title}{fg=white, bg=maincolor}
 \setbeamercolor*{block body}{fg=black, bg=white}
 
-\setbeamercolor*{block title alerted}{fg=white, bg=tuRed}
+\setbeamercolor*{block title alerted}{fg=white, bg=myRed}
 \setbeamercolor*{block body alerted}{fg=black, bg=white}
 
-\setbeamercolor*{block title example}{fg=white, bg=tuYellow}
+\setbeamercolor*{block title example}{fg=white, bg=myYellow}
 \setbeamercolor*{block body example}{fg=black, bg=white}
 
-\setbeamercolor*{caption name}{fg=tudark}
+\setbeamercolor*{caption name}{fg=darkmaincolor}
 \setbeamercolor*{caption}{fg=black}

@@ -1,4 +1,53 @@
-\input{poster_header.tex}
+\PassOptionsToPackage{unicode, colorlinks=true, linkcolor=black, urlcolor=black}{hyperref}
+\documentclass[t]{beamer} 
+
+\usetheme[0000AA]{fact}
+
+\usepackage[
+  orientation=portrait,
+  size=a0,
+  scale=1.0,
+]{beamerposter}
+
+\usepackage{fontspec}
+
+\usepackage{polyglossia}
+\setmainlanguage[variant=american]{english}
+
+\usepackage{csquotes}
+\usepackage{microtype}
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\setmathfont[Scale=MatchLowercase]{TeX Gyre Pagella Math}
+
+\usepackage{blindtext}
+\usepackage{multicol}
+
+\usepackage{graphicx}
+
+\usepackage[backend=biber, style=numeric]{biblatex}
+\DeclareFieldFormat*{title}{\textit{#1}}
+\renewcommand*{\bibfont}{\footnotesize}
+\addbibresource{../commons/references.bib}
+\defbibenvironment{bibliography}
+  {\noindent}
+  {\unspace}
+  {}
+
+\renewbibmacro*{begentry}{%
+  \usebeamercolor{bibliography item}%
+  \color{bibliography item.fg}%
+  \printtext[labelnumberwidth]{%
+    \printfield{prefixnumber}%
+    \printfield{labelnumber}%
+  }%
+  \setunit{\addnbspace}%
+}
+
+\renewcommand*{\finentrypunct}{\addperiod\space}
+
+\newlength{\thirdtextwidth}
+\setlength\thirdtextwidth{0.333333\textwidth}
 
 \title{Title of the Contribution}
 \author{Corresponding Author for the FACT-Collaboration}
