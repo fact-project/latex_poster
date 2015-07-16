@@ -1,0 +1,116 @@
+\input{poster_header.tex}
+
+\title{Title of the Contribution}
+\author{Corresponding Author for the FACT-Collaboration}
+
+\begin{document}%
+% \begin{tikz}[remember picture, overlay, shift=(current page.north west)]
+% \draw [thick, lightgray, step=1.0cm,] (0,0) grid (\paperwidth, -\paperheight);
+% \end{tikz}
+\begin{columns}[onlytextwidth]%
+  \begin{column}{0.5\textwidth}%
+    \begin{block}[equal height group=A]{Test}%
+      \begin{multicols}{2}
+        \begin{figure}
+          \includegraphics[width=\linewidth]{example-image-a}\\
+          \caption{Toller Plot.\cite{icrc-alignment}}\label{fig:tollerplot}
+        \end{figure}
+        \columnbreak
+        \blindtext\cite{icrc-muons}
+      \end{multicols}
+    \end{block}%
+  \end{column}%
+  \begin{column}{0.5\textwidth}%
+    \begin{alertblock}[equal height group=A]{Test}%
+      \begin{multicols}{2}
+        \blindtext\cite{fact-reference}
+        \blindtext 
+      \end{multicols}
+    \end{alertblock}%
+  \end{column}%
+\end{columns}%
+\begin{columns}[c, onlytextwidth]%
+  \begin{column}{\thirdtextwidth}%
+    \begin{exampleblock}{Test}%
+      \blindtext%
+    \end{exampleblock}%
+  \end{column}%
+  \begin{column}{\thirdtextwidth}%
+    \begin{block}{Test}%
+      \blindtext%
+    \end{block}%
+  \end{column}%
+  \begin{column}{\thirdtextwidth}%
+    \begin{block}{Test}%
+      \blindtext%
+    \end{block}%
+  \end{column}%
+\end{columns}%
+\begin{columns}[onlytextwidth]%
+  \begin{column}{0.5\textwidth}%
+    \begin{block}{Test}%
+      \blindtext%
+    \end{block}%
+  \end{column}%
+  \begin{column}{0.5\textwidth}%
+    \begin{block}{Test}%
+      \blindtext%
+    \end{block}%
+  \end{column}%
+\end{columns}%
+\begin{columns}[t, onlytextwidth]
+  \begin{column}{2\thirdtextwidth}
+    \begin{block}[equal height group=4]{Bla}
+      \blindtext
+      \blindtext
+    \end{block}
+  \end{column}
+  \begin{column}{\thirdtextwidth}
+    \begin{block}[equal height group=4]{Bla}
+      \blindtext
+    \end{block}
+  \end{column}
+\end{columns}
+
+
+
+\vfill
+\begin{columns}[t, onlytextwidth]%
+  \begin{column}{0.4\textwidth}%
+    \begin{block}[equal height group=bottom]{\normalsize References}
+      \footnotesize%
+      \printbibliography%
+    \end{block}
+  \end{column}%
+  \begin{column}{0.45\textwidth}%
+    \begin{block}[equal height group=bottom]{\normalsize Acknowledgment}
+      \begin{multicols}{2}%
+        \footnotesize
+        The  important  contributions  from  ETH Zurich  grants  ETH-10.08-2  and  ETH-27.12-1  as  well  as  the funding by the German BMBF (Verbundforschung Astro- und Astroteilchenphysik) are gratefully acknowledged.
+        We are thankful for the very valuable contributions from E.~Lorenz, D.~Renker and G.~Viertel during the early phase of the project.
+        We thank the Instituto de Astrofisica de Canarias allowing us to operate the telescope at the Observatorio Roque de los Muchachos in La Palma, the Max-Planck-Institut für Physik for providing us with the mount of the former HEGRA CT 3 telescope, and the MAGIC collaboration for their support.
+        We also thank the group of Marinella Tose from the College of Engineering and Technology at Western Mindanao State University, Philippines, for providing us with the scheduling web-interface.
+      \end{multicols}%
+    \end{block}
+  \end{column}%
+  \begin{column}{0.15\textwidth}%
+    \begin{block}[equal height group=bottom]{\normalsize FACT@ICRC2015}
+      \begin{multicols}{2}
+      \begin{description}[align=right, labelwidth=2cm]
+        \item[704] Talk
+        \item[706] Talk
+        \item[707] Talk
+        \item[733] Talk
+      \end{description}
+      \columnbreak
+      \begin{description}[align=right, labelwidth=2cm]
+        \item[806] Talk
+        \item[976] Talk
+        \item[1032] Talk
+        \item[Xtalk] Talk
+      \end{description}
+      \end{multicols}
+    \end{block}
+  \end{column}%
+\end{columns}%
+\end{document}

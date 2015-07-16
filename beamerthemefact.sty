@@ -1,0 +1,201 @@
+\ProvidesPackage{beamerthemenfact}
+
+%% packages %%
+\RequirePackage{xcolor}
+\RequirePackage{tcolorbox}
+\RequirePackage{ifluatex}
+\RequirePackage{ifxetex}
+
+\ifluatex%
+  \RequirePackage{fontspec}
+  \setromanfont{Linux Libertine O}
+  \setsansfont{Linux Biolinum O}
+\else
+  \ifxetex
+    \RequirePackage{fontspec}
+    \setromanfont{Linux Libertine O}
+    \setsansfont{Linux Biolinum O}
+  \else
+    \RequirePackage{libertine}
+  \fi
+\fi
+
+\RequirePackage{tikz}
+
+%% add numbers to figures and tables
+\setbeamertemplate{caption}[numbered]
+
+%% bibliography settings
+\setbeamertemplate{bibliography item}[text]
+
+\setbeamercolor{bibliography entry author}{fg=black}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry location}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}
+\setbeamercolor{bibliography item}{fg=tudark}
+
+\setbeamerfont{bibliography item}{size=\footnotesize}
+\setbeamerfont{bibliography entry author}{size=\footnotesize}
+\setbeamerfont{bibliography entry title}{size=\footnotesize}
+\setbeamerfont{bibliography entry location}{size=\footnotesize}
+\setbeamerfont{bibliography entry note}{size=\footnotesize}
+
+
+%% color definitions %%
+\definecolor{tugreen}{RGB}{132, 186, 26}
+\colorlet{tudark}{tugreen!70!black}
+\colorlet{tulight}{tugreen!10!white}
+\colorlet{tuYellow}{yellow!70!red}
+\colorlet{tuRed}{red!80!black}
+
+\newtcolorbox{myblock}[2][1]{
+  leftright skip=5mm,
+  before skip=10mm,
+  after skip=10mm,
+  boxrule=5pt,
+  sharp corners,
+  fonttitle=\usebeamerfont{block title},
+  fontupper=\usebeamerfont{block body},
+  fontlower=\usebeamerfont{block body},
+  boxsep=5mm,
+  adjusted title={#2},
+  before upper=\parindent20pt\noindent,
+  #1,
+}
+
+\renewenvironment{block}[2][]{%
+  \usebeamercolor{block body}%
+  \usebeamercolor{block title}%
+  \tcbset{%
+    colback=block body.bg,
+    colframe=block title.bg,
+    colbacktitle=block title.bg,
+    coltitle=block title.fg,
+  }%
+  \begin{myblock}[#1]{#2}
+}{%
+  \par
+  \end{myblock}
+}
+\renewenvironment{alertblock}[2][]{%
+  \usebeamercolor{block body alerted}
+  \usebeamercolor{block title alerted}
+  \tcbset{%
+    colback=block body alerted.bg,
+    colframe=block title alerted.bg,
+    colbacktitle=block title alerted.bg,
+    coltitle=block title alerted.fg ,
+  }%
+  \begin{myblock}[#1]{#2}
+}{%
+  \par
+  \end{myblock}
+}
+\renewenvironment{exampleblock}[2][]{%
+  \usebeamercolor{block body example}
+  \usebeamercolor{block title example}
+  \tcbset{%
+    colback=block body example.bg,
+    colframe=block title example.bg,
+    colbacktitle=block title example.bg,
+    coltitle=block title example.fg ,
+  }%
+  \begin{myblock}[#1]{#2}
+}{%
+  \end{myblock}
+}
+
+\usefonttheme{serif}
+
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{headline}{
+  \begin{beamercolorbox}[wd=\paperwidth, ht=1cm]{headline}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[wd=\paperwidth]{headline}
+    \hspace*{2cm}%
+    \parbox[t][10cm][c]{0.17\paperwidth-2cm}{%
+      \vfill
+      \includegraphics[height=8cm]{logos/fact.png}%
+      \vfill
+    }%
+    \hspace{2cm}%
+    \parbox[t][10cm][c]{0.66\paperwidth-4cm}{%
+      \vspace*{\fill}
+      \begin{beamercolorbox}[wd=\linewidth, center]{title}
+        \usebeamerfont{headline}
+        \textcolor{tugreen}{FACT} –
+        the \textcolor{tugreen}{F}irst
+        G-\textcolor{tugreen}{A}PD
+        \textcolor{tugreen}{C}herenkov
+        \textcolor{tugreen}{T}elescope
+      \end{beamercolorbox}
+      \vspace*{1cm}
+      \begin{beamercolorbox}[wd=\linewidth, center]{title}%
+        \usebeamercolor{title}\usebeamerfont{title}\inserttitle\par%
+      \end{beamercolorbox}
+      \vspace*{1cm}
+      \begin{beamercolorbox}[wd=\linewidth, center]{author}%
+        \usebeamercolor{author}\usebeamerfont{author}\insertauthor\par%
+      \end{beamercolorbox}
+      \vspace*{\fill}
+    }%
+    \hspace{2cm}%
+    \parbox[t][10cm][c]{0.17\paperwidth-2cm}{
+      \vspace*{\fill}
+      \centering
+      \includegraphics[height=2cm]{logos/tudo.pdf}
+      \vspace{1cm}
+      \includegraphics[height=2cm]{logos/ethz.pdf}
+      \vspace{1cm}
+      \includegraphics[height=2cm]{logos/uniwue.pdf}
+      \hspace{1cm}
+      \includegraphics[height=2cm]{logos/isdc.pdf}
+      \vspace*{\fill}
+    }%
+  \end{beamercolorbox}%
+}
+
+\setbeamertemplate{footline}{\vspace*{1cm}}
+
+%% fonts %%
+
+\setbeamerfont{normal text}{size=\normalsize, family=\rmfamily}
+
+\setbeamerfont{headline}{
+  size=\fontsize{70}{80}\selectfont,
+  family=\sffamily,
+  series=\bfseries,
+}
+\setbeamerfont{title}{size=\Huge, family=\sffamily, series=\bfseries}
+\setbeamerfont{author}{size=\LARGE, family=\rmfamily}
+\setbeamerfont{institute}{size=\Large}
+
+\setbeamerfont{block title}{size=\LARGE, family=\sffamily, series=\bfseries}
+
+\setbeamerfont{caption name}{size=\normalsize, family=\sffamily, series=\bfseries}
+\setbeamerfont{caption}{size=\normalsize}
+
+%% colors %%
+
+\setbeamercolor*{background canvas}{bg=tulight}
+
+
+\setbeamercolor*{headline}{fg=black, bg=white}
+\setbeamercolor*{footline}{fg=tugreen, bg=white}
+
+\setbeamercolor*{title}{fg=black}
+\setbeamercolor*{institute}{fg=black}
+\setbeamercolor*{author}{fg=black}
+
+\setbeamercolor*{block title}{fg=white, bg=tugreen}
+\setbeamercolor*{block body}{fg=black, bg=white}
+
+\setbeamercolor*{block title alerted}{fg=white, bg=tuRed}
+\setbeamercolor*{block body alerted}{fg=black, bg=white}
+
+\setbeamercolor*{block title example}{fg=white, bg=tuYellow}
+\setbeamercolor*{block body example}{fg=black, bg=white}
+
+\setbeamercolor*{caption name}{fg=tudark}
+\setbeamercolor*{caption}{fg=black}

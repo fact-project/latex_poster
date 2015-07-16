@@ -1,0 +1,84 @@
+\PassOptionsToPackage{unicode, colorlinks=true, linkcolor=tugreen, urlcolor=black}{hyperref}
+\documentclass[t]{beamer} 
+
+\usepackage{tikz}
+\usetikzlibrary{calc,decorations.pathmorphing,decorations.markings,decorations.text,decorations.pathreplacing}
+
+\usepackage{caption}
+\captionsetup{compatibility=false}
+\usepackage{subcaption}
+
+\usepackage[
+  orientation=portrait,
+  size=a0,
+  scale=1.0,
+]{beamerposter}
+
+\usepackage[
+  locale=US,
+  per-mode=symbol-or-fraction,
+  separate-uncertainty=true,
+  binary-units=true,
+]{siunitx}
+
+\newcommand\caps[1]{\bgroup\addfontfeature{Kerning=Uppercase}\scshape#1\egroup}
+
+\usetheme{fact}
+
+\usepackage{fontspec}
+
+\usepackage{polyglossia}
+\setmainlanguage[variant=american]{english}
+
+\usepackage{csquotes}
+
+\usepackage{microtype}
+
+\usepackage{mathtools}
+\usepackage{unicode-math}
+\setmathfont[Scale=MatchLowercase]{TeX Gyre Pagella Math}
+
+\usepackage{xcolor}
+
+\usepackage{blindtext}
+
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+\usepackage{graphicx}
+
+\usepackage{qrcode}
+
+
+\usepackage{enumitem}
+\setlist[itemize]{font=\color{tugreen}\bfseries, label=\textbullet}
+\setlist[enumerate]{font=\color{tugreen}\bfseries, label=\arabic*.}
+\setlist[description]{font=\color{tugreen}\bfseries}
+
+\usepackage[backend=biber, style=numeric]{biblatex}
+\DeclareFieldFormat*{title}{\textit{#1}}
+\renewcommand*{\bibfont}{\footnotesize}
+\addbibresource{../commons/references.bib}
+\defbibenvironment{bibliography}
+  {\noindent}
+  {\unspace}
+  {}
+
+\renewbibmacro*{begentry}{%
+  \usebeamercolor{bibliography item}%
+  \color{bibliography item.fg}%
+  \printtext[labelnumberwidth]{%
+    \printfield{prefixnumber}%
+    \printfield{labelnumber}%
+  }%
+  \setunit{\addnbspace}%
+}
+
+\renewcommand*{\finentrypunct}{\addperiod\space}
+
+\newlength{\thirdtextwidth}
+\setlength\thirdtextwidth{0.333333\textwidth}
+
+% \newcommand\fact{\caps{FACT}}
+\newcommand\facttools{\caps{FACT}-Tools}
+\newcommand\param[1]{\ensuremath{\mathtt{#1}}}
