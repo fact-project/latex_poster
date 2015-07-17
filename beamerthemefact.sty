@@ -1,7 +1,9 @@
 \ProvidesPackage{beamerthemenfact}
-%default for main color is TU Dortmund green
-\definecolor{maincolor}{RGB}{132, 186, 26}
-\DeclareOption*{\definecolor{maincolor}{HTML}{\CurrentOption}}
+% provide options for ethz poster, tudo poster, defaults to tudo
+\newif\if@tudo\@tudotrue
+\newif\if@ethz\@ethzfalse
+\DeclareOption{tudo}{\@tudotrue\@ethzfalse}
+\DeclareOption{ethz}{\@tudofalse\@ethztrue}
 \ProcessOptions\relax
 
 %% packages %%
@@ -36,6 +38,14 @@
 
 
 %% color definitions %%
+\if@tudo
+  \definecolor{maincolor}{RGB}{132, 186, 26}
+\else
+  \if@ethz
+    \definecolor{maincolor}{RGB}{0, 105, 177}
+  \fi
+\fi
+
 \colorlet{darkmaincolor}{maincolor!70!black}
 \colorlet{lightmaincolor}{maincolor!10!white}
 \colorlet{myYellow}{yellow!70!red}
@@ -158,13 +168,21 @@
     \parbox[t][10cm][c]{0.17\paperwidth-2cm}{
       \vspace*{\fill}
       \centering
-      \includegraphics[height=2cm]{logos/tudo.pdf}
+      \if@tudo%
+        \includegraphics[width=\linewidth]{logos/tudo.pdf}
+        \vspace{1cm}
+        \includegraphics[width=\linewidth]{logos/ethz.pdf}
+      \else
+        \if@ethz
+          \includegraphics[width=\linewidth]{logos/ethz.pdf}
+          \vspace{1cm}
+          \includegraphics[width=\linewidth]{logos/tudo.pdf}
+        \fi
+      \fi
       \vspace{1cm}
-      \includegraphics[height=2cm]{logos/ethz.pdf}
-      \vspace{1cm}
-      \includegraphics[height=2cm]{logos/uniwue.pdf}
-      \hspace{1cm}
-      \includegraphics[height=2cm]{logos/isdc.pdf}
+      \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
+      \hspace{0.99cm}%
+      \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}%
       \vspace*{\fill}
     }%
     \vspace*{1cm}
@@ -175,12 +193,12 @@
 
 %% fonts %%
 \setbeamerfont{normal text}{size=\normalsize, family=\rmfamily}
-\setbeamerfont{headline}{
+\setbeamerfont{title}{
   size=\fontsize{70}{80}\selectfont,
   family=\sffamily,
   series=\bfseries,
 }
-\setbeamerfont{title}{size=\Huge, family=\sffamily, series=\bfseries}
+\setbeamerfont{headline}{size=\Huge, family=\sffamily, series=\bfseries}
 \setbeamerfont{author}{size=\LARGE, family=\rmfamily}
 \setbeamerfont{institute}{size=\Large}
 \setbeamerfont{block title}{size=\LARGE, family=\sffamily, series=\bfseries}
