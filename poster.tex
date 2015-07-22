@@ -21,6 +21,9 @@
 % automatic enquoting depending on the language with \enquote{Bla}
 \usepackage{csquotes}
 
+% for the qrcode
+\usepackage{qrcode}
+
 % math setup
 \usepackage{mathtools}
 \usepackage{unicode-math}
@@ -35,17 +38,23 @@
 % for including all types of graphics
 \usepackage{graphicx}
 
-% bibliography settings, this is a little complicated to
-% get an inline list.
-\usepackage[backend=biber, style=numeric, url=false]{biblatex}
+% bibliography settings
+\usepackage[
+  backend=biber,
+  style=numeric,
+  url=false,
+  sorting=none,
+  firstinits=true,
+]{biblatex}
 \DeclareFieldFormat*{title}{\textit{#1}}
+
+% a little complicated, but this creates an inline list.
 \renewcommand*{\bibfont}{\footnotesize}
 \addbibresource{references.bib}
 \defbibenvironment{bibliography}
   {\noindent}
   {\unspace}
   {}
-
 \renewbibmacro*{begentry}{%
   \usebeamercolor{bibliography item}%
   \color{bibliography item.fg}%
@@ -65,6 +74,13 @@
 \author{Corresponding Author for the FACT-Collaboration}
 
 \begin{document}%
+\begin{columns}[onlytextwidth]%
+  \begin{column}{\textwidth}%
+    \begin{block}
+      \blindtext[2]
+    \end{block}
+  \end{column}%
+\end{columns}%
 \begin{columns}[onlytextwidth]%
   \begin{column}{0.5\textwidth}%
     \begin{block}[equal height group=A]{Test}%
@@ -144,27 +160,32 @@
     \begin{block}[equal height group=bottom]{\normalsize Acknowledgment}
       \begin{multicols}{2}%
         \footnotesize
-        The  important  contributions  from  ETH Zurich  grants  ETH-10.08-2  and  ETH-27.12-1  as  well  as  the funding by the German BMBF (Verbundforschung Astro- und Astroteilchenphysik) are gratefully acknowledged.
-        We are thankful for the very valuable contributions from E.~Lorenz, D.~Renker and G.~Viertel during the early phase of the project.
-        We thank the Instituto de Astrofisica de Canarias allowing us to operate the telescope at the Observatorio Roque de los Muchachos in La Palma, the Max-Planck-Institut für Physik for providing us with the mount of the former HEGRA CT 3 telescope, and the MAGIC collaboration for their support.
-        We also thank the group of Marinella Tose from the College of Engineering and Technology at Western Mindanao State University, Philippines, for providing us with the scheduling web-interface.
+        The important contributions from ETH Zurich grants ETH-10.08-2 and ETH-27.12-1 as well as the funding by the German BMBF (Verbundforschung Astro- und Astroteilchenphysik) and HAP (Helmoltz Alliance for Astroparticle Physics) are gratefully acknowledged.
+        We are thankful for the very valuable contributions from E.~Lorenz,  D.~Renker and G.~Viertel during the early phase of the project.
+        We thank the Instituto de Astrofisica de Canarias allowing us to operate the telescope at the Observatorio del Roque de los Muchachos in La Palma, the Max-Planck-Institut f\"ur Physik for providing us with the mount of the former HEGRA CT 3 telescope, and the MAGIC collaboration for their support.
+        Part of this work is supported by Deutsche Forschungsgemeinschaft (DFG) within the Collaborative Research Center SFB 876 "Providing Information by Research-Constrained Analysis", project C3. 
       \end{multicols}%
     \end{block}
   \end{column}%
   \begin{column}{0.16\textwidth}%
     \begin{block}[equal height group=bottom]{\normalsize FACT@ICRC2015}
       \begin{multicols}{2}
-        \noindent Talks:
+        Talks:
         \begin{description}[align=right, labelwidth=1.70cm, nosep]
           \item[704] GA 18 
           \item[806] GA 07
           \item[1032] GA 11
         \end{description}
-        \noindent Poster:
+        \vspace{0.5cm}
+        \centering
+        \qrcode[height=3cm]{icrc2015.fact-project.org}
+
+        \columnbreak
+        Poster:
         \begin{description}[align=right, labelwidth=1.3cm, nosep]
           \item[706] 1GA(56)
           \item[707] 2GA(67)
-          \item[733] 2GA(60)
+          \item[\textcolor{gray}{733}] \textcolor{gray}{2GA(60)}
           \item[863] 1GA(68)
           \item[865] 3GA(65)
           \item[976] 1GA(84)
