@@ -136,9 +136,15 @@
 
 %% customize lists
 \RequirePackage{enumitem}
-\setlist[itemize]{font=\color{maincolor}\bfseries, label=\textbullet}
+\setlist[itemize]{
+  font=\color{maincolor}\bfseries,
+  label=\textbullet,
+}
 \setlist[enumerate]{font=\color{maincolor}\bfseries, label=\arabic*.}
 \setlist[description]{font=\color{maincolor}\bfseries}
+\setlist[0]{itemsep=0.5ex, parsep=0ex, topsep=1ex, partopsep=0pt}
+\setlist[1]{itemsep=0.5ex, parsep=0ex, topsep=1ex, partopsep=0pt}
+
 
 %% no navigation symbols
 \setbeamertemplate{navigation symbols}{}
