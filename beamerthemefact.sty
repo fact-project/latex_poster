@@ -2,8 +2,10 @@
 % provide options for ethz poster, tudo poster, defaults to tudo
 \newif\if@tudo\@tudotrue
 \newif\if@ethz\@ethzfalse
-\DeclareOption{tudo}{\@tudotrue\@ethzfalse}
-\DeclareOption{ethz}{\@tudofalse\@ethztrue}
+\newif\if@uniwue\@uniwuefalse
+\DeclareOption{tudo}{\@tudotrue\@ethzfalse\@uniwuefalse}
+\DeclareOption{ethz}{\@tudofalse\@ethztrue\@uniwuefalse}
+\DeclareOption{uniwue}{\@tudofalse\@ethzfalse\@uniwuetrue}
 \ProcessOptions\relax
 
 %% packages %%
@@ -42,7 +44,12 @@
 \else
   \if@ethz
     \definecolor{maincolor}{RGB}{0, 105, 177}
+  \else 
+    \if@uniwue
+      \definecolor{maincolor}{HTML}{004389}
+    \fi
   \fi
+
 \fi
 
 \colorlet{darkmaincolor}{maincolor!70!black}
@@ -190,17 +197,29 @@
         \includegraphics[width=\linewidth]{logos/tudo.pdf}
         \vspace{1cm}
         \includegraphics[width=\linewidth]{logos/ethz.pdf}
+        \vspace{1cm}
+        \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
+        \hspace{0.99cm}%
+        \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}%
       \else
         \if@ethz
           \includegraphics[width=\linewidth]{logos/ethz.pdf}
           \vspace{1cm}
           \includegraphics[width=\linewidth]{logos/tudo.pdf}
+          \vspace{1cm}
+          \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
+          \hspace{0.99cm}%
+          \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}%
+        \else
+          \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
+          \hspace{0.99cm}%
+          \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}%
+          \vspace{1cm}
+          \includegraphics[width=\linewidth]{logos/ethz.pdf}
+          \vspace{1cm}
+          \includegraphics[width=\linewidth]{logos/tudo.pdf}
         \fi
       \fi
-      \vspace{1cm}
-      \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
-      \hspace{0.99cm}%
-      \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}%
       \vspace*{\fill}
     }%
     \vspace*{1cm}
