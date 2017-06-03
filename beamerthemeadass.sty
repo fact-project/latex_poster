@@ -1,0 +1,295 @@
+\ProvidesPackage{adassposter}
+
+% provide options for ethz poster, tudo poster, defaults to tudo
+\newif\if@tudo\@tudotrue
+\newif\if@ethz\@ethzfalse
+\newif\if@uniwue\@uniwuefalse
+\DeclareOption{tudo}{\@tudotrue\@ethzfalse\@uniwuefalse}
+\DeclareOption{ethz}{\@tudofalse\@ethztrue\@uniwuefalse}
+\DeclareOption{uniwue}{\@tudofalse\@ethzfalse\@uniwuetrue}
+\ProcessOptions\relax
+
+
+
+%% packages %%
+\RequirePackage[most]{tcolorbox}
+% \RequirePackage{ifluatex}
+% \RequirePackage{ifxetex}
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+
+%% make default text font serif and allow usage of all fonts
+% \usefonttheme{serif}
+% \usefonttheme{professionalfonts}
+
+\setlength{\columnsep}{1cm}
+
+\RequirePackage{fontspec}
+\setromanfont{Linux Libertine O}
+\setsansfont[
+  BoldFont={Fira Sans Medium},
+]{Fira Sans Light}
+
+
+%% add numbers to figures and tables
+\setbeamertemplate{caption}[numbered]
+
+\RequirePackage{xcolor}
+%% color definitions %%
+\definecolor{maincolor}{RGB}{024,024, 024}
+\definecolor{blockBackgroundColor}{RGB}{249,249, 249}
+% \colorlet{blockBackgroundColor}{white}
+\colorlet{textColor}{maincolor}
+\colorlet{titleTextColor}{maincolor}
+\colorlet{backgroundColor}{white}
+
+
+
+\colorlet{darkmaincolor}{maincolor!70!black}
+\colorlet{lightmaincolor}{maincolor!10!white}
+\colorlet{myYellow}{yellow!70!red}
+\colorlet{myRed}{red!80!black}
+
+%% bibliography settings
+\setbeamertemplate{bibliography item}[text]
+
+\setbeamercolor{bibliography entry author}{fg=black}
+\setbeamercolor{bibliography entry title}{fg=black}
+\setbeamercolor{bibliography entry location}{fg=black}
+\setbeamercolor{bibliography entry note}{fg=black}
+\setbeamercolor{bibliography item}{fg=darkmaincolor}
+% \setbeamercolor*{normal text}{fg=black,bg=i6colorscheme3}
+
+\setbeamerfont{bibliography item}{size=\footnotesize}
+\setbeamerfont{bibliography entry author}{size=\footnotesize}
+\setbeamerfont{bibliography entry title}{size=\footnotesize}
+\setbeamerfont{bibliography entry location}{size=\footnotesize}
+\setbeamerfont{bibliography entry note}{size=\footnotesize}
+
+%% replace beamer blocks with tcolorboxes
+\newtcolorbox{myblock}[1][]{
+  enhanced,
+  frame hidden,
+  leftright skip=5mm,
+  before skip=10mm,
+  after skip=10mm,
+  boxrule=2pt,
+  sharp corners,
+  fonttitle=\usebeamerfont{block title},
+  fontupper=\usebeamerfont{block body},
+  fontlower=\usebeamerfont{block body},
+  fuzzy shadow={0mm}{-4pt}{-0.5pt}{0.5pt}{black!60!white},
+  boxsep=5mm,
+  #1,
+}
+
+\newtcolorbox{titleblock}[1][]{
+  enhanced,
+  frame hidden,
+  opacityfill=0,
+  boxrule=0pt,
+  sharp corners,
+  #1,
+}
+
+\newtcolorbox{streamblock}[3][]{
+  enhanced,
+  interior hidden,
+  leftright skip=5mm,
+  before skip=3mm,
+  after skip=3mm,
+  % boxrule=2pt,
+  % show bounding box,
+  boxsep=5mm,
+  sharp corners,
+  detach title,
+  fontupper=\color{blockBackgroundColor},
+  % before upper={\tcbtitle\quad}],
+  frame code={
+  \path [tcb fill frame]
+    (frame.south west) --
+    (frame.north west) --
+    ([xshift=-5mm]frame.north) --
+    ([yshift=#2]frame.north) --
+    ([xshift=5mm]frame.north) --
+    (frame.north east) --
+    (frame.south east) --
+    (frame.south east) --
+    ([xshift=5mm]frame.south) --
+    ([yshift=#3]frame.south) --
+    ([xshift=-5mm]frame.south) --
+    cycle;
+  },
+  #1,
+}
+
+\RenewDocumentEnvironment{block}{O{} g}{%
+  \usebeamercolor{block body}%
+  \usebeamercolor{block title}%
+  \tcbset{%
+    colback=block body.bg,
+    colframe=block title.bg,
+    colbacktitle=block title.bg,
+    coltitle=block title.fg,
+  }%
+  \IfValueTF{#2}{%
+    \begin{myblock}[adjusted title=#2, #1]%
+  }{%
+    \begin{myblock}[#1]%
+  }
+}{%
+  \par
+  \end{myblock}
+}
+\RenewDocumentEnvironment{alertblock}{O{} g}{%
+  \usebeamercolor{block body alerted}
+  \usebeamercolor{block title alerted}
+  \tcbset{%
+    colback=block body alerted.bg,
+    colframe=block title alerted.bg,
+    colbacktitle=block title alerted.bg,
+    coltitle=block title alerted.fg ,
+  }%
+  \IfValueTF{#2}{%
+    \begin{myblock}[adjusted title=#2, #1]%
+  }{%
+    \begin{myblock}[#1]%
+  }
+}{%
+  \par
+  \end{myblock}
+}
+\RenewDocumentEnvironment{exampleblock}{O{} g}{%
+  \usebeamercolor{block body example}
+  \usebeamercolor{block title example}
+  \tcbset{%
+    colback=block body example.bg,
+    colframe=block title example.bg,
+    colbacktitle=block title example.bg,
+    coltitle=block title example.fg ,
+  }%
+  \IfValueTF{#2}{%
+    \begin{myblock}[adjusted title=#2, #1]%
+  }{%
+    \begin{myblock}[#1]%
+  }
+}{%
+  \end{myblock}
+}
+
+
+%% customize lists
+\RequirePackage{enumitem}
+\setlist[itemize]{
+  font=\color{maincolor}\bfseries,
+  label=\textbullet,
+}
+\setlist[enumerate]{font=\color{maincolor}\bfseries, label=\arabic*.}
+\setlist[description]{font=\color{maincolor}\bfseries}
+\setlist[0]{itemsep=0.5ex, parsep=0ex, topsep=1ex, partopsep=0pt}
+\setlist[1]{itemsep=0.5ex, parsep=0ex, topsep=1ex, partopsep=0pt}
+
+
+%% no navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+%% create FACT headline
+% \usebackgroundtemplate{\includegraphics[width=\paperwidth]{logos/galaxy.jpg}}
+\setbeamertemplate{headline}{
+      \begin{center}
+       \tikz[overlay]{
+         \node[scope fading=south,inner sep=0pt,opacity=0.4, shift={(0 cm, -8cm)}] {\includegraphics[width=\paperwidth]{logos/galaxy.jpg}};
+       }
+      \end{center}
+
+      \begin{columns}
+       \begin{column}{0.75\linewidth}
+        \begin{titleblock}[]{}%
+          \begin{center}
+            \vspace*{2cm}
+            \usebeamercolor{title}\usebeamerfont{title}\inserttitle\par%
+          \end{center}
+        \end{titleblock}
+        \vspace*{2cm}
+        \begin{titleblock}[]{}%
+          \begin{center}
+            \usebeamercolor{author}\usebeamerfont{author}\insertauthor\par%
+          \end{center}
+        \end{titleblock}
+        \end{column}
+        \hfill
+        \begin{column}{0.2\linewidth - 1cm}
+          \vspace*{2cm}
+          \if@tudo%
+            \includegraphics[width=\linewidth]{logos/tudo.pdf}\\%
+            \vspace{1cm}%
+            \includegraphics[width=\linewidth]{logos/ethz.pdf}\\%
+            \vspace{1cm}%
+            \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
+            \hspace{0.99cm}%
+            \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}%
+          \else
+            \if@ethz
+              \includegraphics[width=\linewidth]{logos/ethz.pdf}\\%
+              \vspace{1cm}
+              \includegraphics[width=\linewidth]{logos/tudo.pdf}\\%
+              \vspace{1cm}
+              \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
+              \hspace{0.99cm}%
+              \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}%
+            \else
+              \includegraphics[width=0.5\linewidth-0.5cm]{logos/uniwue.pdf}%
+              \hspace{0.99cm}%
+              \includegraphics[width=0.5\linewidth-0.5cm]{logos/isdc.pdf}\\%
+              \vspace{1cm}%
+              \includegraphics[width=\linewidth]{logos/ethz.pdf}\\%
+              \vspace{1cm}%
+              \includegraphics[width=\linewidth]{logos/tudo.pdf}%
+            \fi
+          \fi
+        \end{column}
+        \hspace{1cm}
+       \end{columns}
+       \vspace{3cm}
+}
+
+\setbeamertemplate{footline}{\vspace*{1cm}}
+
+%% fonts %%
+\setbeamerfont{normal text}{size=\Large, family=\sffamily}
+\setbeamerfont{title}{
+  size=\fontsize{70}{80}\selectfont,
+  family=\sffamily,
+  series=\bfseries,
+}
+\setbeamerfont{headline}{size=\Huge, family=\sffamily}
+\setbeamerfont{author}{size=\LARGE, family=\sffamily}
+\setbeamerfont{institute}{size=\Large}
+\setbeamerfont{block title}{size=\LARGE, family=\sffamily}
+\setbeamerfont{caption name}{
+  size=\normalsize,
+  family=\sffamily,
+  series=\bfseries,
+}
+\setbeamerfont{caption}{size=\normalsize}
+
+%% colors %%
+\setbeamercolor*{headline}{fg=black, bg=backgroundColor}
+\setbeamercolor*{footline}{fg=maincolor, bg=backgroundColor}
+\setbeamercolor*{normal text}{fg=maincolor, bg=backgroundColor}
+
+\setbeamercolor*{title}{fg=black}
+\setbeamercolor*{institute}{fg=black}
+\setbeamercolor*{author}{fg=black}
+
+\setbeamercolor*{block title}{fg=titleTextColor, bg=blockBackgroundColor}
+\setbeamercolor*{block body}{fg=textColor, bg=blockBackgroundColor}
+
+\setbeamercolor*{block title alerted}{fg=white, bg=myRed}
+\setbeamercolor*{block body alerted}{fg=black, bg=white}
+
+\setbeamercolor*{block title example}{fg=white, bg=myYellow}
+\setbeamercolor*{block body example}{fg=black, bg=white}
+
+\setbeamercolor*{caption name}{fg=darkmaincolor}
+\setbeamercolor*{caption}{fg=black}
