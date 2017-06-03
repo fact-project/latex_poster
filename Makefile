@@ -3,18 +3,23 @@ texoptions = -lualatex \
 			 -interaction=nonstopmode \
 			 -halt-on-error
 
-all: build/poster.pdf
+all: build/example.pdf
 
-build/poster.pdf: poster.tex beamerthemefact.sty | build
-	latexmk $(texoptions) poster.tex
+build/example.pdf: FORCE | build
+	latexmk $(texoptions) example.tex
 
 # this compiles the poster, opens a pdf viewer and 
 # then constantly updates if the input files are changed
-preview: poster.tex beamerthemefact.sty | build
-	latexmk $(texoptions) -pvc poster.tex
+preview: FORCE | build
+	latexmk $(texoptions) -pvc example.tex
+
+FORCE:
 
 build:
 	mkdir -p build
 
 clean:
 	rm -rf build
+
+
+.PHONY: clean FORCE all
